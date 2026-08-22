@@ -25,7 +25,16 @@ SECRET_KEY = "django-insecure-!*_34(q@^c(kh5-(z1)3i1k(__8s4pm6zlo3m#8^gp#zigr_k^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["budget-trip-booking.onrender.com", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = [
+    "budget-trip-booking-niranjana.onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://budget-trip-booking-niranjana.onrender.com",
+]
+
 
 
 
