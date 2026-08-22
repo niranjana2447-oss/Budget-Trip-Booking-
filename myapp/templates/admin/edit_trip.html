@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Trip</title>
+    <style>
+        body{
+            font-family:Arial;
+            background:#f4f4f4;
+        }
+
+        .container{
+            width:600px;
+            margin:40px auto;
+            background:white;
+            padding:25px;
+            border-radius:10px;
+            box-shadow:0 0 10px gray;
+        }
+
+        input, textarea{
+            width:100%;
+            padding:10px;
+            margin:10px 0;
+        }
+
+        button{
+            background:#0d6efd;
+            color:white;
+            border:none;
+            padding:12px;
+            width:100%;
+            cursor:pointer;
+            border-radius:5px;
+        }
+
+        img{
+            width:180px;
+            height:120px;
+            object-fit:cover;
+            margin-bottom:10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+<a href="{% url 'admin_dashboard' %}"
+   style="
+      display:inline-block;
+      margin-bottom:20px;
+      padding:10px 18px;
+      background:#0d6efd;
+      color:white;
+      text-decoration:none;
+      border-radius:6px;">
+    ← Back to Dashboard
+</a>
+
+<h2>Edit Trip</h2>
+
+<form method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+
+<label>Place Name</label>
+<input type="text" name="place_name" value="{{ trip.place_name }}">
+
+<label>State / Country</label>
+<input type="text" name="state_or_country" value="{{ trip.state_or_country }}">
+
+<label>Price</label>
+<input type="number" name="price" value="{{ trip.price }}">
+
+<label>Duration</label>
+<input type="text" name="duration" value="{{ trip.duration }}">
+
+<label>Best Time</label>
+<input type="text" name="best_time" value="{{ trip.best_time }}">
+
+<label>Places Covered</label>
+<textarea name="places_covered">{{ trip.places_covered }}</textarea>
+
+<label>Description</label>
+<textarea name="description">{{ trip.description }}</textarea>
+
+<p>Current Image</p>
+<img src="{{ trip.image.url }}">
+
+<input type="file" name="image">
+
+<label>
+    <input type="checkbox" name="is_active"
+    {% if trip.is_active %}checked{% endif %}>
+    Trip Available
+</label>
+
+<br><br>
+
+
+<button type="submit">Update Trip</button>
+
+</form>
+
+</div>
+
+</body>
+</html>

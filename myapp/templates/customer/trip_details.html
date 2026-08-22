@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ trip.place_name }}</title>
+
+    <style>
+
+        body{
+            font-family:Arial;
+            background:#f4f4f4;
+            margin:0;
+        }
+
+        .container{
+            width:80%;
+            margin:30px auto;
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 0 10px gray;
+        }
+
+        img{
+            width:100%;
+            height:400px;
+            object-fit:cover;
+            border-radius:10px;
+        }
+
+        h1{
+            color:#0d6efd;
+        }
+
+        .price{
+            color:green;
+            font-size:25px;
+            font-weight:bold;
+        }
+
+        .btn{
+            padding:12px 20px;
+            background:green;
+            color:white;
+            text-decoration:none;
+            border-radius:5px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <img src="{{ trip.image.url }}">
+
+    <h1>{{ trip.place_name }}</h1>
+
+    <h3>{{ trip.state_or_country }}</h3>
+
+    <p class="price">₹ {{ trip.price }}</p>
+
+    <p><b>Duration :</b> {{ trip.duration }}</p>
+
+    <p><b>Best Time :</b> {{ trip.best_time }}</p>
+
+    <p><b>Places Covered :</b> {{ trip.places_covered }}</p>
+
+    <p><b>Description :</b></p>
+
+    <p>{{ trip.description }}</p>
+
+    <br>
+
+    <a href="{% url 'book_trip' trip.id %}">
+        <button class="btn">Book Now</button>
+    </a>
+
+</div>
+
+</body>
+</html>

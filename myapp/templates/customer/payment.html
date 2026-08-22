@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment</title>
+
+    <style>
+        body{
+            font-family:Arial;
+            background:#f5f5f5;
+        }
+
+        .container{
+            width:500px;
+            margin:50px auto;
+            background:white;
+            padding:25px;
+            border-radius:10px;
+            box-shadow:0 0 10px gray;
+        }
+
+        h2{
+            text-align:center;
+            color:#0d6efd;
+        }
+
+        p{
+            font-size:18px;
+        }
+
+        select{
+            width:100%;
+            padding:10px;
+            margin:15px 0;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            background:green;
+            color:white;
+            border:none;
+            font-size:18px;
+            cursor:pointer;
+            border-radius:5px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Demo Payment</h2>
+
+<p><b>Trip:</b> {{ booking.trip.place_name }}</p>
+
+<p><b>Persons:</b> {{ booking.persons }}</p>
+
+<p><b>Total Amount:</b> ₹{{ booking.total_amount }}</p>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<label><b>Select Payment Method</b></label>
+
+<select name="payment_method">
+    <option>UPI</option>
+    <option>Credit Card</option>
+    <option>Debit Card</option>
+    <option>Net Banking</option>
+</select>
+
+<button type="submit">
+Pay Now
+</button>
+
+</form>
+
+</div>
+
+</body>
+</html>

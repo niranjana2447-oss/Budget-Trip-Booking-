@@ -1,0 +1,285 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Budget Trip Finder</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Pacifico&display=swap" rel="stylesheet">
+
+    <style>
+        body{
+            margin:0;
+            font-family:Arial;
+            background:#f4f6f9;
+        }
+
+        /* NAV */
+        nav{
+            background:#0d6efd;
+            padding:15px;
+            display:flex;
+            justify-content:space-between;
+            color:white;
+            align-items:center;
+        }
+
+        nav a{
+            color:white;
+            margin-left:15px;
+            text-decoration:none;
+            font-weight:bold;
+        }
+
+        /* HERO */
+        .hero{
+            background:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470');
+            background-size:cover;
+            height:420px;
+            color:white;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+            position:relative;
+        }
+
+        .hero::before{
+            content:"";
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.5);
+        }
+
+        .hero-content{
+            position:relative;
+            z-index:2;
+        }
+
+        .hero h1{
+            font-size:48px;
+            margin:0;
+            font-family:'Pacifico', cursive;
+            color:#ffd369;
+        }
+
+        .hero p{
+            font-size:20px;
+            margin-top:10px;
+            font-family:'Poppins', sans-serif;
+            color:#f1f1f1;
+        }
+
+        /* TRIPS */
+        .container{
+            width:90%;
+            margin:auto;
+            margin-top:30px;
+        }
+
+        .trip-grid{
+            display:flex;
+            flex-wrap:wrap;
+            gap:20px;
+        }
+
+        .card{
+            background:white;
+            border-radius:10px;
+            overflow:hidden;
+            box-shadow:0 2px 10px rgba(0,0,0,0.15);
+            height:100%;
+            display:flex;
+            flex-direction:column;
+            width:23%;
+        }
+
+
+        .card img{
+            width:100%;
+            height:150px;
+            object-fit:cover;
+        }
+
+        .card-body{
+            padding:15px;
+        }
+
+        .btn{
+            display:inline-block;
+            margin-top:10px;
+            padding:8px 12px;
+            background:#0d6efd;
+            color:white;
+            text-decoration:none;
+            border-radius:5px;
+        }
+
+        @media (max-width: 1200px){
+    .trip-grid{
+        grid-template-columns:repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px){
+    .trip-grid{
+        grid-template-columns:repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px){
+    .trip-grid{
+        grid-template-columns:repeat(1, 1fr);
+    }
+}
+
+
+        .section-title{
+            text-align:center;
+            font-size:28px;
+            margin:30px 0 20px;
+            font-family:'Poppins', sans-serif;
+            color:#0d6efd;
+        }
+        /* card hover effect */
+        .card{
+            transition:0.3s ease;
+        }
+        .card:hover{
+            transform:translateY(-5px);
+            box-shadow:0 8px 20px rgba(0,0,0,0.2);
+        }
+        .price{
+            font-weight:bold;
+            color:#28a745;
+            font-size:18px;
+        }
+        .duration{
+            color:#666;
+            font-size:14px;
+        }
+
+
+        .badge{
+            position:absolute;
+            top:10px;
+            left:10px;
+            background:orange;
+            color:white;
+            padding:5px 10px;
+            font-size:12px;
+            border-radius:5px;
+            z-index:10;
+        }
+
+
+        .card{
+            position:relative;
+            background:white;
+            border-radius:15px;
+            overflow:hidden;
+            box-shadow:0 2px 10px rgba(0,0,0,0.12);
+            transition:all 0.4s ease;
+            transform:translateY(0);
+        }
+
+
+        .card::before{
+            content:"";
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            border-radius:15px;
+            background:linear-gradient(135deg, rgba(13,110,253,0.2), transparent);
+            opacity:0;
+            transition:0.4s;
+        }
+        .card:hover::before{
+            opacity:1;
+        }
+
+
+        /* Hover effect */
+        .card:hover{
+            transform:translateY(-10px) scale(1.02);
+            box-shadow:0 15px 30px rgba(0,0,0,0.25);
+        }
+        /* image zoom effect */
+        .card img{
+            transition:0.4s ease;
+        }
+        .card:hover img{
+            transform:scale(1.1);
+        }
+        /* smooth button */
+        .btn{
+            transition:0.3s ease;
+        }
+        .btn:hover{
+            background:#ff7b00;
+            transform:scale(1.05);
+        }
+        
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <h2>Budget Trip Finder</h2>
+
+    <div>
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Register</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+    <div class="hero-content">
+        <h1>Find Your Budget Trip</h1>
+        <p>Explore amazing places at a low cost</p>
+    </div>
+</div>
+
+<!-- TRIPS -->
+<div class="container">
+
+    <h2 class="section-title">Featured Trips</h2>
+
+    <div class="trip-grid">
+
+        {% for t in trips %}
+        <div class="card" style="position:relative;">
+            <div class="badge">Best Deal</div>
+
+            {% if t.image %}
+                <img src="{{ t.image.url }}">
+            {% endif %}
+
+            <div class="card-body">
+
+                <h3>{{ t.place_name }}</h3>
+
+                <p class="price">₹{{ t.price }}</p>
+
+                <p class="duration">{{ t.duration }}</p>
+
+                <a href="{% url 'trip_details' t.id %}" class="btn">View Details</a>
+
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+</body>
+</html>

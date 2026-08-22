@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Bookings</title>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'css/customer.css' %}">
+    
+    <style>
+        body{font-family:Arial;background:#f4f6f9;}
+        .container{width:90%;margin:auto;margin-top:30px;}
+        h2{text-align:center;}
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            background:white;
+            margin-top:20px;
+        }
+
+        th,td{
+            padding:12px;
+            border:1px solid #ddd;
+            text-align:center;
+        }
+
+        th{background:#0d6efd;color:white;}
+
+      .status{
+    padding:5px 10px;
+    border-radius:5px;
+    color:white;
+}
+
+.pending{background:orange;}
+.paid{background:green;}
+.cancelled{background:red;}
+
+    .cancel-btn{
+        background:red;
+        color:white;
+        padding:6px 10px;
+        border-radius:5px;
+        text-decoration:none;
+    }
+
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>My Bookings</h2>
+
+    {% if bookings %}
+
+    <table>
+        <tr>
+            <th>Trip</th>
+            <th>Date</th>
+            <th>Persons</th>
+            <th>Total Amount</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+
+        {% for b in bookings %}
+        <tr>
+            <td>{{ b.trip.place_name }}</td>
+            <td>{{ b.travel_date }}</td>
+            <td>{{ b.persons }}</td>
+            <td>₹{{ b.total_amount }}</td>
+            <td>
+                <span class="status {{ b.payment_status| lower }}">
+                    {{ b.payment_status }}
+                </span>
+            </td>
+            <td>
+                {% if b.payment_status != "Cancelled" %}
+                    <a href="{% url 'cancel_booking' b.id %}" 
+                    onclick="return confirm('Are you sure to cancel this booking?')"
+           style="background:red;color:white;padding:6px 10px;border-radius:5px;text-decoration:none;">Cancel</a>
+                {% else %}
+                    <span style="color:gray;">Cancelled</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+    {% else %}
+        <h3 style="text-align:center;margin-top:20px;">
+            No bookings found
+        </h3>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
