@@ -95,11 +95,7 @@ def logout_view(request):
 
 
 def landing_page(request):
-    trips = Trip.objects.all()[:6]  # featured 6 trips
-
-    return render(request, "customer/landing.html", {
-        "trips": trips
-    })
+    return render(request, "customer/landing.html") 
 
 
 # -----------------------
