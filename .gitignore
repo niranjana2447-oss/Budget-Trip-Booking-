@@ -5,5 +5,7 @@ __pycache__/
 *.py[cod]
 db.sqlite3
 media/
+!media/trip_images/
+!media/trip_images/*
 .env
 .vscode/
